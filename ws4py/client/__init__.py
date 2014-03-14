@@ -202,11 +202,11 @@ class WebSocketBaseClient(WebSocket):
         Connects this websocket and starts the upgrade handshake
         with the remote endpoint.
         """
+        self.sock.connect(self.bind_addr)
+
         if self.scheme == "wss":
             # default port is now 443; upgrade self.sender to send ssl
             self.sock = ssl.wrap_socket(self.sock, **self.ssl_options)
-
-        self.sock.connect(self.bind_addr)
 
         self._write(self.handshake_request)
 
